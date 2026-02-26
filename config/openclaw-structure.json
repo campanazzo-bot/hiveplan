@@ -1,0 +1,268 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.2.24",
+    "lastTouchedAt": "2026-02-26T13:54:12.582Z"
+  },
+  "env": {
+    "OPENROUTER_API_KEY": "<redacted>"
+  },
+  "wizard": {
+    "lastRunAt": "2026-02-26T13:54:12.559Z",
+    "lastRunVersion": "2026.2.24",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  },
+  "auth": {
+    "profiles": {
+      "openai-codex:default": {
+        "provider": "openai-codex",
+        "mode": "oauth"
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "openai-codex/gpt-5.3-codex",
+        "fallbacks": [
+          "openrouter/anthropic/claude-sonnet-4.5"
+        ]
+      },
+      "models": {
+        "openai-codex/gpt-5.3-codex": {},
+        "ollama/llama3.2:3b": {},
+        "openrouter/anthropic/claude-opus-4.6": {},
+        "openrouter/anthropic/claude-sonnet-4.5": {},
+        "openrouter/anthropic/claude-haiku-3.5": {},
+        "openrouter/z-ai/glm-5": {},
+        "openrouter/minimax/minimax-m2.5": {},
+        "openrouter/deepseek/deepseek-chat": {},
+        "openrouter/google/gemini-3.1-pro-preview": {},
+        "openrouter/google/gemini-2.5-flash": {},
+        "openrouter/google/gemini-2.5-flash-lite": {},
+        "openrouter/google/gemini-2.0-flash-001": {},
+        "openrouter/moonshotai/kimi-k2.5": {},
+        "openrouter/moonshotai/kimi-k2": {},
+        "openrouter/moonshotai/kimi-k2-thinking": {},
+        "openrouter/mistralai/mistral-large-3-2512": {},
+        "openrouter/mistralai/mistral-medium-3.1": {},
+        "openrouter/mistralai/mistral-small-3.2": {},
+        "openrouter/mistralai/devstral-2-2512": {},
+        "openrouter/mistralai/devstral-medium": {},
+        "openrouter/mistralai/codestral-2508": {},
+        "openrouter/mistralai/ministral-8b-2512": {},
+        "openrouter/qwen/qwen-2.5-coder-32b-instruct": {}
+      },
+      "workspace": "/Users/wectcorpgmail.com/.openclaw/workspace",
+      "memorySearch": {
+        "enabled": false
+      },
+      "compaction": {
+        "mode": "safeguard"
+      },
+      "heartbeat": {
+        "every": "1h",
+        "activeHours": {
+          "start": "08:00",
+          "end": "22:00"
+        },
+        "model": "ollama/llama3.2:3b",
+        "target": "last"
+      },
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 2
+      }
+    },
+    "list": [
+      {
+        "id": "chief-of-staff",
+        "default": true,
+        "name": "Don Ramon",
+        "workspace": "/Users/wectcorpgmail.com/.openclaw/workspace/agents/chief-of-staff",
+        "model": {
+          "primary": "openrouter/google/gemini-2.5-flash"
+        }
+      },
+      {
+        "id": "lead-coordinator",
+        "workspace": "/Users/wectcorpgmail.com/.openclaw/workspace/agents/lead-coordinator",
+        "model": {
+          "primary": "openai-codex/gpt-5.3-codex",
+          "fallbacks": [
+            "openrouter/minimax/minimax-m2.5"
+          ]
+        }
+      },
+      {
+        "id": "implementer",
+        "workspace": "/Users/wectcorpgmail.com/.openclaw/workspace/agents/implementer",
+        "model": {
+          "primary": "openai-codex/gpt-5.3-codex",
+          "fallbacks": [
+            "openrouter/deepseek/deepseek-chat",
+            "openrouter/qwen/qwen-2.5-coder-32b-instruct",
+            "openrouter/anthropic/claude-sonnet-4.5"
+          ]
+        }
+      },
+      {
+        "id": "code-reviewer",
+        "workspace": "/Users/wectcorpgmail.com/.openclaw/workspace/agents/code-reviewer",
+        "model": {
+          "primary": "openrouter/qwen/qwen-2.5-coder-32b-instruct",
+          "fallbacks": [
+            "openrouter/mistralai/codestral-2508",
+            "openrouter/anthropic/claude-sonnet-4.5"
+          ]
+        },
+        "tools": {
+          "deny": [
+            "group:web",
+            "browser"
+          ]
+        }
+      },
+      {
+        "id": "qa-tester",
+        "workspace": "/Users/wectcorpgmail.com/.openclaw/workspace/agents/qa-tester",
+        "model": {
+          "primary": "openrouter/mistralai/ministral-8b-2512",
+          "fallbacks": [
+            "openrouter/deepseek/deepseek-chat",
+            "openrouter/anthropic/claude-sonnet-4.5"
+          ]
+        }
+      },
+      {
+        "id": "system-architect",
+        "workspace": "/Users/wectcorpgmail.com/.openclaw/workspace/agents/system-architect",
+        "model": {
+          "primary": "openrouter/z-ai/glm-5",
+          "fallbacks": [
+            "openrouter/moonshotai/kimi-k2.5",
+            "openrouter/anthropic/claude-opus-4.6"
+          ]
+        }
+      },
+      {
+        "id": "researcher",
+        "workspace": "/Users/wectcorpgmail.com/.openclaw/workspace/agents/researcher",
+        "model": {
+          "primary": "openrouter/google/gemini-3.1-pro-preview",
+          "fallbacks": [
+            "openrouter/google/gemini-2.5-flash"
+          ]
+        }
+      }
+    ]
+  },
+  "bindings": [
+    {
+      "agentId": "lead-coordinator",
+      "match": {
+        "channel": "telegram",
+        "peer": {
+          "kind": "group",
+          "id": "-5192572669"
+        }
+      }
+    },
+    {
+      "agentId": "chief-of-staff",
+      "match": {
+        "channel": "telegram",
+        "peer": {
+          "kind": "group",
+          "id": "-5284785016"
+        }
+      }
+    }
+  ],
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "command-logger": {
+          "enabled": true
+        },
+        "session-memory": {
+          "enabled": true
+        },
+        "boot-md": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "dmPolicy": "pairing",
+      "botToken": "8225086212:AAE9k7EK_sa9EQHhA_wW7pxpUb2C_VOI0-U",
+      "groupPolicy": "allowlist",
+      "streaming": "off",
+      "groupAllowFrom": [
+        "5283347007"
+      ],
+      "groups": {
+        "-5192572669": {
+          "groupPolicy": "open",
+          "requireMention": false
+        },
+        "-5284785016": {
+          "groupPolicy": "open",
+          "requireMention": false
+        }
+      }
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "auth": {
+      "mode": "token",
+      "token": "<redacted>"
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    },
+    "nodes": {
+      "denyCommands": [
+        "canvas.eval",
+        "canvas.snapshot",
+        "canvas.present",
+        "canvas.navigate",
+        "canvas.a2ui.push"
+      ]
+    }
+  },
+  "skills": {
+    "load": {
+      "extraDirs": [
+        "~/.agents/skills"
+      ]
+    }
+  },
+  "plugins": {
+    "entries": {
+      "telegram": {
+        "enabled": true
+      }
+    }
+  }
+}
